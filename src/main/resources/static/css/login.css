@@ -1,0 +1,38 @@
+.login-bg {
+    height: 100vh;
+    background-image: url("/images/login-background.jpg");
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-card {
+    height: 500px;
+    width: 500px;
+    background: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+#login-card-bg {
+    height: 500px;
+    width: 343px;
+    background: lightgrey;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+#login-btn {
+    color: white;
+    background-color: grey;
+    border: none;
+}
+
+#login-btn:hover {
+    background-color: lightgray;
+}

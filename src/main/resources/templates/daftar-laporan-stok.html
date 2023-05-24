@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Inventory System - Data Master</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+    <link rel="stylesheet" th:href="@{/css/global.css}" />
+    <link rel="stylesheet" th:href="@{/css/index.css}" />
+    <link rel="stylesheet" th:href="@{/css/table.css}" />
+  </head>
+  <body>
+    <header
+      th:if="${role} eq 'SUPERVISOR'"
+      th:insert="~{@{fragment/header.html}}"
+    ></header>
+    <header
+      th:if="${role} eq 'ADMIN'"
+      th:insert="~{@{fragment/header-admin.html}}"
+    ></header>
+    <div class="content">
+      <h1 class="mb-4 text-center page-title">Daftar Laporan Stok</h1>
+      <a
+        type="button"
+        th:href="@{/report/stok/add}"
+        class="btn btn-success mb-2"
+        th:data-confirm-add="|Apakah Anda yakin ingin menambahkan laporan stok?|"
+        onclick="if (!confirm(this.getAttribute('data-confirm-add'))) return false"
+        >Buat Laporan</a
+      >
+      <div class="table-content">
+        <table class="table table-bordered">
+          <thead class="table-custom">
+            <tr class="text-center">
+              <th class="table-header" scope="col">No.</th>
+              <th class="table-header" scope="col">Tanggal Pembuatan</th>
+              <th class="table-header" scope="col">Aksi</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr th:each="report : ${stokReports}">
+              <th
+                class="text-center"
+                scope="row"
+                th:text="${reportStat.index} + 1"
+              ></th>
+              <td th:text="${report.date}"></td>
+              <td class="text-center">
+                <a
+                  type="button"
+                  th:href="@{'/report/stok/' + ${report.id}}"
+                  class="btn btn-info"
+                  ><img
+                    th:src="@{/images/search.png}"
+                    class="img-fluid"
+                    alt=""
+                    style="width: 20px"
+                /></a>
+                <a type="button" href="#" class="btn btn-warning"
+                  ><img
+                    th:src="@{/images/export.png}"
+                    class="img-fluid"
+                    alt=""
+                    style="width: 20px"
+                /></a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </body>
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"
+  ></script>
+</html>

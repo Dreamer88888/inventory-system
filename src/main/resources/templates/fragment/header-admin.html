@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Header</title>
+    <link rel="stylesheet" th:href="@{/css/header.css}" />
+  </head>
+  <body>
+    <div class="header-div">
+      <ul class="nav justify-content-center">
+        <li class="nav-item">
+          <img
+            th:src="@{/images/logo.png}"
+            alt=""
+            style="width: 100px; height: 50px"
+          />
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" th:href="@{/data-master}">Data Master</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a
+            class="nav-link dropdown-toggle"
+            id="navbarDropdownMenuLink"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            Transaksi
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <li>
+              <a class="dropdown-item" th:href="@{/in/add}">Barang Masuk</a>
+            </li>
+            <li>
+              <a class="dropdown-item" th:href="@{/out/add}">Barang Keluar</a>
+            </li>
+          </ul>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" th:href="@{/logout}">Logout</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link">Hi, Admin!</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

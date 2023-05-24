@@ -1,0 +1,27 @@
+@import url("https://fonts.googleapis.com/css2?family=Mouse+Memoirs&display=swap");
+
+body {
+    margin: 0;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+}
+
+.content {
+    padding: 50px;
+    justify-content: center;
+    align-items: center;
+}
+
+.page-title {
+    font-family: "Mouse Memoirs";
+    font-size: 40px;
+    letter-spacing: 2px;
+    font-weight: 400;
+    color:#393A36;
+}
+
+.input-label {
+    font-family: "Mouse Memoirs";
+    letter-spacing: 2px;
+    font-size: 20px;
+    font-weight: normal;
+}

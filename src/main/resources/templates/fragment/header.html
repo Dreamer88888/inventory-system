@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Header</title>
+    <link rel="stylesheet" th:href="@{/css/header.css}" />
+  </head>
+  <body>
+    <div class="header-div">
+      <ul class="nav justify-content-center">
+        <li class="nav-item mr-5">
+          <img
+            th:src="@{/images/logo.png}"
+            alt=""
+            class="img-fluid"
+            style="height: 70px; margin-top: 5px; margin-bottom: 5px"
+          />
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" th:href="@{/data-master}">Data Master</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a
+            class="nav-link dropdown-toggle"
+            id="navbarDropdownMenuLink"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            Transaksi
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <li>
+              <a class="dropdown-item" th:href="@{/in/add}">Barang Masuk</a>
+            </li>
+            <li>
+              <a class="dropdown-item" th:href="@{/out/add}">Barang Keluar</a>
+            </li>
+          </ul>
+        </li>
+        <li class="nav-item dropdown">
+          <a
+            class="nav-link dropdown-toggle"
+            id="navbarDropdownMenuLink"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            Laporan
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <li>
+              <a class="dropdown-item" th:href="@{/report/stok}"
+                >Laporan Stok</a
+              >
+            </li>
+            <li>
+              <a class="dropdown-item" th:href="@{/report/in}"
+                >Laporan Barang Masuk</a
+              >
+            </li>
+            <li>
+              <a class="dropdown-item" th:href="@{/report/out}">
+                Laporan Barang Keluar
+              </a>
+            </li>
+          </ul>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" th:href="@{/logout}"
+            ><img
+              th:src="@{/images/logout.png}"
+              class="img-fluid"
+              alt=""
+              style="width: 25px"
+          /></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link">Hi, Supervisor!</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

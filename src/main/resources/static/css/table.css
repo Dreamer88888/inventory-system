@@ -1,0 +1,13 @@
+@import url("https://fonts.googleapis.com/css2?family=Mouse+Memoirs&display=swap");
+
+.table-custom {
+    background-color: #393A36;
+    color: white;
+}
+
+.table-header {
+    font-family: "Mouse Memoirs";
+    letter-spacing: 2px;
+    font-size: 20px;
+    font-weight: normal;
+}

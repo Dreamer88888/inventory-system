@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Inventory System - Data Master</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+    <link rel="stylesheet" th:href="@{/css/global.css}" />
+    <link rel="stylesheet" th:href="@{/css/index.css}" />
+    <link rel="stylesheet" th:href="@{/css/table.css}" />
+  </head>
+  <body>
+    <header
+      th:if="${role} eq 'SUPERVISOR'"
+      th:insert="~{@{fragment/header.html}}"
+    ></header>
+    <header
+      th:if="${role} eq 'ADMIN'"
+      th:insert="~{@{fragment/header-admin.html}}"
+    ></header>
+    <div class="content">
+      <h2 class="mb-1 text-center page-title">PT. BANGUN ERA SEJAHTERA</h2>
+      <h1 class="mb-1 text-center page-title">LAPORAN STOK</h1>
+      <h3
+        class="mb-5 text-center page-title"
+        th:text="'Per Tgl. ' + ${reportDate}"
+      ></h3>
+      <div class="table-content">
+        <table class="table table-bordered">
+          <thead class="table-custom">
+            <tr class="text-center">
+              <th class="table-header" scope="col">No.</th>
+              <th class="table-header" scope="col">Kode Barang</th>
+              <th class="table-header" scope="col">Nama Barang</th>
+              <th class="table-header" scope="col">Nama Vendor</th>
+              <th class="table-header" scope="col">Stok (kg)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr th:each="kode, iter : ${kodeBarangs}">
+              <th
+                class="text-center"
+                scope="row"
+                th:text="${iter.index} + 1"
+              ></th>
+              <td th:text="${kode}"></td>
+              <td th:text="${namaBarangs[iter.index]}"></td>
+              <td th:text="${namaVendors[iter.index]}"></td>
+              <td class="text-center" th:text="${stokBarangs[iter.index]}"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </body>
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"
+  ></script>
+</html>

@@ -11,6 +11,8 @@ import java.util.Date;
 @NoArgsConstructor
 public class HistoryBarangDto {
 
+    private Long id;
+    private String kode;
     private Date date;
     private String description;
     private String nomorSuratJalan;

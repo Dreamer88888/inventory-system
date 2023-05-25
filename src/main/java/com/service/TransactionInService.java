@@ -3,6 +3,7 @@ package com.service;
 import com.dto.TransactionInReportDto;
 import com.entity.Barang;
 import com.entity.TransactionIn;
+import com.entity.TransactionOut;
 import com.repository.TransactionInRepository;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
@@ -99,8 +100,18 @@ public class TransactionInService {
         return true;
     }
 
+    @Transactional
     public void deleteTransactionIn(TransactionIn transactionIn) {
-        transactionInRepository.delete(transactionIn);
+        Barang barang = barangService.findByKode(transactionIn.getKodeBarang()).get();
+
+        if (barang != null) {
+            Integer currentStok = barang.getStok();
+            barang.setStok(currentStok - transactionIn.getStok());
+            barangService.updateBarang(barang);
+            transactionInRepository.delete(transactionIn);
+        } else {
+            log.error("Delete transaksi keluar gagal, dengan id " + transactionIn.getKodeBarang());
+        }
     }
 
 }

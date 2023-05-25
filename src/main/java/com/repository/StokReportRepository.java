@@ -11,4 +11,6 @@ public interface StokReportRepository extends JpaRepository<StokReport, Long> {
 
     Optional<StokReport> findById(Long id);
 
+    void deleteById(Long id);
+
 }

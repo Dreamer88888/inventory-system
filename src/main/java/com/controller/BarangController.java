@@ -1,6 +1,7 @@
 package com.controller;
 
 import com.dto.HistoryBarangDto;
+import com.dto.SearchDto;
 import com.entity.Barang;
 import com.service.BarangService;
 import com.service.HistoryService;
@@ -11,6 +12,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
+import org.bouncycastle.math.raw.Mod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -46,6 +48,7 @@ public class BarangController {
 
         model.addAttribute("role", role);
 
+        model.addAttribute("searchDto", new SearchDto());
         model.addAttribute("barangs", barangService.findAll());
 
         return "data-master";
@@ -68,7 +71,7 @@ public class BarangController {
         String role = GlobalFunction.getUserRole(request);
 
         model.addAttribute("role", role);
-        if (!bindingResult.hasErrors() && barangService.findByKode(barang.getKode()).isEmpty()) {
+        if (!bindingResult.hasErrors() && barangService.findByKode(barang.getKode()).isEmpty() && barangService.findByNamaAndVendor(barang.getNama(), barang.getNamaVendor()).isEmpty()) {
             Barang createdBarang = barangService.addBarang(barang);
             if (createdBarang != null) {
                 return "redirect:/data-master";
@@ -78,6 +81,9 @@ public class BarangController {
         } else {
             if (barangService.findByKode(barang.getKode()).isPresent()) {
                 model.addAttribute("errorMessage", "Kode barang sudah terpakai, gunakan kode lain");
+            }
+            if (barangService.findByNamaAndVendor(barang.getNama(), barang.getNamaVendor()).isPresent()) {
+                model.addAttribute("errorComposite", "Pasangan nama barang dan vendor yang sama sudah ada");
             }
             model.addAttribute("barang", barang);
 
@@ -163,6 +169,61 @@ public class BarangController {
         model.addAttribute("histories", historyBarangDtos);
 
         return "history-barang";
+    }
+
+    @GetMapping("/history/delete/in/{id}/{kode}")
+    public String deleteHistoryIn(@PathVariable("id") Long id, @PathVariable("kode") String kode, HttpServletRequest request, Model model) {
+        String role = GlobalFunction.getUserRole(request);
+
+        model.addAttribute("role", role);
+
+        if (!historyService.deleteHistoryInById(id)) {
+            log.error("Transaksi keluar dengan id " + id + " tidak ditemukan");
+        }
+
+        Barang barang = barangService.findByKode(kode).get();
+        List<HistoryBarangDto> historyBarangDtos = historyService.getHistoryBarang(kode);
+
+        model.addAttribute("kodeBarang", kode);
+        model.addAttribute("namaBarang", barang.getNama());
+        model.addAttribute("histories", historyBarangDtos);
+
+        return "history-barang";
+    }
+
+    @GetMapping("/history/delete/out/{id}/{kode}")
+    public String deleteHistoryOut(@PathVariable("id") Long id, @PathVariable("kode") String kode, HttpServletRequest request, Model model) {
+        String role = GlobalFunction.getUserRole(request);
+
+        model.addAttribute("role", role);
+
+        if (!historyService.deleteHistoryOutById(id)) {
+            log.error("Transaksi keluar dengan id " + id + " tidak ditemukan");
+        }
+
+        Barang barang = barangService.findByKode(kode).get();
+        List<HistoryBarangDto> historyBarangDtos = historyService.getHistoryBarang(kode);
+
+        model.addAttribute("kodeBarang", kode);
+        model.addAttribute("namaBarang", barang.getNama());
+        model.addAttribute("histories", historyBarangDtos);
+
+        return "history-barang";
+    }
+
+    @PostMapping("/search")
+    public String searchByKodeBarangOrNamaBarangOrNamaVendor(SearchDto searchDto, HttpServletRequest request, Model model) {
+        String role = GlobalFunction.getUserRole(request);
+
+        model.addAttribute("role", role);
+
+        List<Barang> barangs = barangService.findByKodeOrNamaOrNamaVendorContaining(searchDto);
+
+        model.addAttribute("barangs", barangs);
+        model.addAttribute("searchDto", searchDto);
+
+        return "data-master";
+
     }
 
 }

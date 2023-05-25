@@ -65,4 +65,14 @@ public class StokReportService {
         return stokReportRepository.save(stokReport);
     }
 
+    public boolean deleteStokReport(Long id) {
+        StokReport stokReport = findById(id);
+        if (findById(id) != null) {
+            stokReportRepository.deleteById(id);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 }

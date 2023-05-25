@@ -24,9 +24,9 @@
       method="post"
       th:action="@{/data-master/add}"
     >
-      <h1 class="mb-4 text-center">Tambah Barang</h1>
+      <h1 class="mb-4 text-center page-title">Tambah Barang</h1>
       <div class="mb-3">
-        <label for="kode-barang" class="form-label">Kode Barang</label>
+        <label for="kode-barang" class="form-label input-label">Kode Barang</label>
         <input
           type="text"
           class="form-control"
@@ -46,7 +46,7 @@
         ></div>
       </div>
       <div class="mb-3">
-        <label for="nama-barang" class="form-label">Nama Barang</label>
+        <label for="nama-barang" class="form-label input-label">Nama Barang</label>
         <input
           type="text"
           class="form-control"
@@ -61,7 +61,7 @@
         ></div>
       </div>
       <div class="mb-3">
-        <label for="nama-barang" class="form-label">Nama Vendor</label>
+        <label for="nama-barang" class="form-label input-label">Nama Vendor</label>
         <input
           type="text"
           class="form-control"
@@ -73,6 +73,11 @@
           class="alert alert-danger"
           th:if="${#fields.hasErrors('namaVendor')}"
           th:errors="*{namaVendor}"
+        ></div>
+        <div
+          class="alert alert-danger"
+          th:if="${errorComposite != null}"
+          th:text="${errorComposite}"
         ></div>
       </div>
       <div class="text-center mt-5">

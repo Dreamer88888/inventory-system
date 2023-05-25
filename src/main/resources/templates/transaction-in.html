@@ -25,13 +25,13 @@
       th:action="@{/in/add}"
     >
       <h1 class="mb-4 text-center page-title">Transaksi Barang Masuk</h1>
-      <div class="form-group mb-3">
+      <div class="mb-3">
         <label for="kode-barang" class="input-label">Kode Barang</label>
         <select class="form-control" id="kode-barang" th:field="*{kodeBarang}">
           <option
             th:each="barang : ${barangs}"
             th:value="${barang.kode}"
-            th:text="${barang.kode}"
+            th:text="${barang.kode} + ' - ' + ${barang.nama}"
           ></option>
         </select>
         <div
@@ -75,7 +75,7 @@
       <div class="text-center mt-5">
         <button
           type="submit"
-          th:data-confirm-add="|Apakah Anda yakin ingin menambahkan transaksi barang masuk?|"
+          th:data-confirm-add="|Apakah Anda yakin ingin menambahkan transaksi barang masuk? Transaksi yang sudah ditambahkan tidak bisa diubah|"
           onclick="if (!confirm(this.getAttribute('data-confirm-add'))) return false"
           class="btn btn-success"
         >
@@ -89,5 +89,4 @@
       </div>
     </form>
   </body>
-  <script th:src="@{/js/bootstrap.min.js}"></script>
 </html>

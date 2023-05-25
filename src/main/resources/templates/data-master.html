@@ -33,6 +33,10 @@
           alt=""
           style="width: 15px"
       /></a>
+      <form class="form-inline mb-3" method="post" th:object="${searchDto}" th:action="@{/data-master/search}">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" th:field="*{keyword}">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+      </form>
       <div class="table-content">
         <table class="table table-bordered">
           <thead class="table-custom">

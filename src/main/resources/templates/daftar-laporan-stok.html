@@ -57,7 +57,18 @@
                     alt=""
                     style="width: 20px"
                 /></a>
-                <a type="button" href="#" class="btn btn-warning"
+                <a
+                    type="button"
+                    th:href="@{'/report/stok/delete/' + ${report.id}}"
+                    class="btn btn-danger"
+                ><img
+                    th:src="@{/images/delete.png}"
+                    class="img-fluid"
+                    alt=""
+                    style="width: 20px"
+                />
+                </a>
+                <a type="button" th:href="@{'/report/stok/download/' + ${report.id}}" class="btn btn-warning"
                   ><img
                     th:src="@{/images/export.png}"
                     class="img-fluid"

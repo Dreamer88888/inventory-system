@@ -35,6 +35,7 @@
               <th scope="col">Masuk (kg)</th>
               <th scope="col">Keluar (kg)</th>
               <th scope="col">Stok</th>
+<!--              <th scope="col">Aksi</th>-->
             </tr>
           </thead>
           <tbody>
@@ -50,6 +51,34 @@
               <td class="text-center" th:text="${history.in}"></td>
               <td class="text-center" th:text="${history.out}"></td>
               <td class="text-center" th:text="${history.stok}"></td>
+              <td>
+<!--                <a-->
+<!--                        th:if="${history.in != null}"-->
+<!--                        type="button"-->
+<!--                        th:href="@{'/data-master/history/delete/in/'+ ${history.id} + '/' + ${history.kode}}"-->
+<!--                        th:data-confirm-delete="|Apakah Anda yakin ingin transaksi barang keluar? Data yang sudah dihapus tidak dapat dikembalikan|"-->
+<!--                        onclick="if (!confirm(this.getAttribute('data-confirm-delete'))) return false"-->
+<!--                        class="btn btn-danger"-->
+<!--                ><img-->
+<!--                        th:src="@{/images/delete.png}"-->
+<!--                        class="img-fluid"-->
+<!--                        alt=""-->
+<!--                        style="width: 20px"-->
+<!--                /></a>-->
+<!--                <a-->
+<!--                        th:if="${history.out != null}"-->
+<!--                        type="button"-->
+<!--                        th:href="@{'/data-master/history/delete/out/'+ ${history.id} + '/' + ${history.kode}}"-->
+<!--                        th:data-confirm-delete="|Apakah Anda yakin ingin transaksi barang keluar? Data yang sudah dihapus tidak dapat dikembalikan|"-->
+<!--                        onclick="if (!confirm(this.getAttribute('data-confirm-delete'))) return false"-->
+<!--                        class="btn btn-danger"-->
+<!--                ><img-->
+<!--                        th:src="@{/images/delete.png}"-->
+<!--                        class="img-fluid"-->
+<!--                        alt=""-->
+<!--                        style="width: 20px"-->
+<!--                /></a>-->
+              </td>
             </tr>
           </tbody>
         </table>

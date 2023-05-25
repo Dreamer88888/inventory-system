@@ -100,8 +100,18 @@ public class TransactionOutService {
         return true;
     }
 
+    @Transactional
     public void deleteTransactionOut(TransactionOut transactionOut) {
-        transactionOutRepository.delete(transactionOut);
+        Barang barang = barangService.findByKode(transactionOut.getKodeBarang()).get();
+        if (barang != null) {
+            Integer currentStok = barang.getStok();
+            barang.setStok(currentStok + transactionOut.getStok());
+            barangService.updateBarang(barang);
+            transactionOutRepository.delete(transactionOut);
+        } else {
+            log.error("Delete transaksi keluar gagal, dengan id " + transactionOut.getKodeBarang());
+        }
+
     }
 
 }

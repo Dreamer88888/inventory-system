@@ -63,9 +63,9 @@
           </div>
         </div>
       </form>
-      <!--      <a type="button" th:href="@{/data-master/add}" class="btn btn-info mb-2"-->
-      <!--        >Export Laporan</a-->
-      <!--      >-->
+      <a type="button" th:if="${(from != null && to != null)}" th:href="@{'/report/in/download/' + ${from} + '/' + ${to}}" class="btn btn-info mb-2"
+        >Export Laporan</a
+      >
       <div class="table-content">
         <table class="table table-bordered">
           <thead class="table-custom">
@@ -92,6 +92,10 @@
               <td th:text="${report.namaBarang}"></td>
               <td th:text="${report.namaVendor}"></td>
               <td class="text-center" th:text="${report.quantity}"></td>
+            </tr>
+            <tr>
+              <th colspan="6" class="text-center">Total</th>
+              <td class="text-center" th:text="${sum}"></td>
             </tr>
           </tbody>
         </table>

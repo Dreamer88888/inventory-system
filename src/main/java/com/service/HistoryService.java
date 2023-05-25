@@ -41,6 +41,8 @@ public class HistoryService {
 
                 HistoryBarangDto historyBarangDto = new HistoryBarangDto();
 
+                historyBarangDto.setId(transactionIn.getId());
+                historyBarangDto.setKode(transactionIn.getKodeBarang());
                 historyBarangDto.setDate(transactionIn.getDate());
                 historyBarangDto.setDescription("Diterima dari " + barang.getNamaVendor());
                 historyBarangDto.setNomorSuratJalan(transactionIn.getNomorSuratJalan());
@@ -53,6 +55,8 @@ public class HistoryService {
             } else {
                 HistoryBarangDto historyBarangDto = new HistoryBarangDto();
 
+                historyBarangDto.setId(transactionOut.getId());
+                historyBarangDto.setKode(transactionOut.getKodeBarang());
                 historyBarangDto.setDate(transactionOut.getDate());
                 historyBarangDto.setDescription("Dikirim ke " + transactionOut.getNamaCustomer());
                 historyBarangDto.setNomorSuratJalan(transactionOut.getNomorSuratJalan());
@@ -69,6 +73,8 @@ public class HistoryService {
             HistoryBarangDto historyBarangDto = new HistoryBarangDto();
             TransactionIn transactionIn = transactionIns.get(i);
 
+            historyBarangDto.setId(transactionIn.getId());
+            historyBarangDto.setKode(transactionIn.getKodeBarang());
             historyBarangDto.setDate(transactionIn.getDate());
             historyBarangDto.setDescription("Diterima dari " + barang.getNamaVendor());
             historyBarangDto.setNomorSuratJalan(transactionIn.getNomorSuratJalan());
@@ -82,6 +88,8 @@ public class HistoryService {
             HistoryBarangDto historyBarangDto = new HistoryBarangDto();
             TransactionOut transactionOut = transactionOuts.get(i);
 
+            historyBarangDto.setId(transactionOut.getId());
+            historyBarangDto.setKode(transactionOut.getKodeBarang());
             historyBarangDto.setDate(transactionOut.getDate());
             historyBarangDto.setDescription("Dikirim ke " + transactionOut.getNamaCustomer());
             historyBarangDto.setNomorSuratJalan(transactionOut.getNomorSuratJalan());
@@ -92,6 +100,20 @@ public class HistoryService {
         }
 
         return historyTransactions;
+    }
+
+    public boolean deleteHistoryInById(Long id) {
+        TransactionIn transactionIn = transactionInService.findById(id);
+        transactionInService.deleteTransactionIn(transactionIn);
+
+        return true;
+    }
+
+    public boolean deleteHistoryOutById(Long id) {
+        TransactionOut transactionOut = transactionOutService.findById(id);
+        transactionOutService.deleteTransactionOut(transactionOut);
+
+        return true;
     }
 
 }

@@ -1,6 +1,7 @@
 package com.controller;
 
 import com.dto.TransactionOutDto;
+import com.entity.Barang;
 import com.entity.TransactionOut;
 import com.service.BarangService;
 import com.service.TransactionOutService;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.Date;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/out")
@@ -42,6 +44,10 @@ public class TransactionOutController {
 
     @PostMapping("/add")
     public String addTransactionIn(@Valid @ModelAttribute("transactionOutDto") TransactionOutDto transactionOutDto, BindingResult bindingResult, HttpServletRequest request, Model model) {
+        String role = GlobalFunction.getUserRole(request);
+
+        model.addAttribute("role", role);
+
         if (!bindingResult.hasErrors()) {
             TransactionOut transactionOut = new TransactionOut();
 
@@ -51,16 +57,22 @@ public class TransactionOutController {
             transactionOut.setStok(transactionOutDto.getStok());
             transactionOut.setDate(new Date());
 
-            if (transactionOutService.addTransactionOut(transactionOut) != null) {
-                return "redirect:/data-master";
+            Optional<Barang> barang = barangService.findByKode(transactionOutDto.getKodeBarang());
+
+            if (barang.get().getStok() < transactionOutDto.getStok()) {
+                model.addAttribute("errorMessage", "Stok barang tidak mencukupi");
+                model.addAttribute("transactionOutDto", transactionOutDto);
+                model.addAttribute("barangs", barangService.findAll());
+
+                return "transaction-out";
             } else {
-                return "redirect:/out/add";
+                if (transactionOutService.addTransactionOut(transactionOut) != null) {
+                    return "redirect:/data-master";
+                } else {
+                    return "redirect:/out/add";
+                }
             }
         } else {
-            String role = GlobalFunction.getUserRole(request);
-
-            model.addAttribute("role", role);
-
             model.addAttribute("transactionOutDto", transactionOutDto);
             model.addAttribute("barangs", barangService.findAll());
 
